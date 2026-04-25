@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pacifique NIYISHOBORA | Full Stack Developer</title>
+    <meta name="description" content="Full Stack Developer from Rwanda. Building clean, modern, and responsive web applications.">
+
+    <link rel="stylesheet" href="style.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header" id="header">
+    <a href="#home" class="logo">Paci<span>.</span></a>
+
+    <nav class="navbar" id="navbar">
+        <a href="#home"      class="nav-link active">Home</a>
+        <a href="#about"     class="nav-link">About</a>
+        <a href="#skills"    class="nav-link">Skills</a>
+        <a href="#portfolio" class="nav-link">Portfolio</a>
+        <a href="#contact"   class="nav-link">Contact</a>
+    </nav>
+
+    <div class="header-controls">
+        <button class="theme-btn active-theme" id="themeDark"  title="Dark"  onclick="setTheme('dark')"><i class="bx bxs-moon"></i></button>
+        <button class="theme-btn"              id="themeLight" title="Light" onclick="setTheme('light')"><i class="bx bxs-sun"></i></button>
+        <button class="theme-btn"              id="themeCyan"  title="Ocean" onclick="setTheme('cyan')"><i class="bx bx-water"></i></button>
+        <button class="settings-toggle" id="settingsToggle" title="Customize"><i class="bx bx-palette"></i></button>
+        <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</header>
+
+<!-- SETTINGS PANEL -->
+<div class="settings-overlay" id="settingsOverlay"></div>
+<aside class="settings-panel" id="settingsPanel" aria-label="Customize portfolio">
+    <div class="settings-header">
+        <h3><i class="bx bx-palette"></i> Customize</h3>
+        <button class="close-settings" id="closeSettings"><i class="bx bx-x"></i></button>
+    </div>
+    <div class="settings-body">
+        <div class="settings-section-title">Personal Info</div>
+        <div class="setting-group"><label class="setting-label">Full Name</label><input type="text" class="setting-input" id="settingName" placeholder="Pacifique NIYISHOBORA"></div>
+        <div class="setting-group"><label class="setting-label">Nickname / Logo</label><input type="text" class="setting-input" id="settingNickname" placeholder="Paccy"></div>
+        <div class="setting-group"><label class="setting-label">Role / Title</label><input type="text" class="setting-input" id="settingRole" placeholder="Full Stack Developer"></div>
+        <div class="setting-group"><label class="setting-label">Location</label><input type="text" class="setting-input" id="settingLocation" placeholder="City, Country"></div>
+        <div class="setting-group"><label class="setting-label">Email</label><input type="email" class="setting-input" id="settingEmail" placeholder="you@email.com"></div>
+        <div class="setting-group"><label class="setting-label">Phone</label><input type="tel" class="setting-input" id="settingPhone" placeholder="+250 000 000 000"></div>
+        <div class="setting-group"><label class="setting-label">Short Bio</label><textarea class="setting-input setting-textarea" id="settingBio" placeholder="A brief intro about yourself..."></textarea></div>
+
+        <div class="settings-section-title">Social Links</div>
+        <div class="setting-group"><label class="setting-label">Instagram URL</label><div class="input-with-icon"><i class="bx bxl-instagram input-icon"></i><input type="url" class="setting-input has-icon" id="settingInstagram" placeholder="https://instagram.com/..."></div></div>
+        <div class="setting-group"><label class="setting-label">GitHub URL</label><div class="input-with-icon"><i class="bx bxl-github input-icon"></i><input type="url" class="setting-input has-icon" id="settingGithub" placeholder="https://github.com/..."></div></div>
+        <div class="setting-group"><label class="setting-label">LinkedIn URL</label><div class="input-with-icon"><i class="bx bxl-linkedin input-icon"></i><input type="url" class="setting-input has-icon" id="settingLinkedin" placeholder="https://linkedin.com/in/..."></div></div>
+
+        <div class="settings-section-title">Appearance</div>
+        <div class="setting-group">
+            <label class="setting-label">Accent Gradient</label>
+            <div class="gradient-builder">
+                <div class="gradient-preview" id="gradientPreview"></div>
+                <div class="gradient-stops">
+                    <div class="stop-row"><span class="stop-label">Color 1</span><input type="color" class="color-swatch" id="gradColor1" value="#7c3aed"></div>
+                    <div class="stop-row"><span class="stop-label">Color 2</span><input type="color" class="color-swatch" id="gradColor2" value="#a855f7"></div>
+                    <div class="stop-row"><span class="stop-label">Accent</span><input type="color" class="color-swatch" id="gradColor3" value="#06b6d4"></div>
+                </div>
+                <div class="gradient-direction">
+                    <label class="setting-label">Direction</label>
+                    <div class="dir-btns">
+                        <button class="dir-btn active" data-deg="135">↗</button>
+                        <button class="dir-btn" data-deg="90">↑</button>
+                        <button class="dir-btn" data-deg="180">→</button>
+                        <button class="dir-btn" data-deg="45">↘</button>
+                    </div>
+                </div>
+                <button class="apply-gradient-btn" id="applyGradient">Apply Gradient</button>
+                <button class="reset-gradient-btn" id="resetGradient">Reset to Default</button>
+            </div>
+        </div>
+        <div class="setting-group">
+            <label class="setting-label">Font Size</label>
+            <div class="font-size-control">
+                <button class="size-btn" id="fontDecrease">A−</button>
+                <span class="size-display" id="fontSizeDisplay">16px</span>
+                <button class="size-btn" id="fontIncrease">A+</button>
+            </div>
+        </div>
+        <button class="save-settings-btn" id="saveSettings"><i class="bx bx-check"></i> Save All Changes</button>
+        <div class="save-status" id="saveStatus"></div>
+    </div>
+</aside>
+
+
+<!-- HERO -->
+<section class="home" id="home">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="home-inner">
+        <div class="home-content">
+            <div class="home-badge"><span class="pulse-dot"></span> Available for Hire</div>
+            <h1 id="heroName">Pacifique<br><span class="name-gradient">NIYISHOBORA</span></h1>
+            <div class="role-line">I'm a <span class="typed-text"></span><span class="cursor-blink">|</span></div>
+            <p id="heroBio">A passionate web development student focused on building clean, modern, and responsive web applications. I turn ideas into real, functional digital experiences.</p>
+            <div class="home-btns">
+                <a href="#contact" class="btn btn-primary"><i class="bx bx-send"></i> Hire Me</a>
+                <a href="#portfolio" class="btn btn-outline"><i class="bx bx-grid-alt"></i> My Work</a>
+            </div>
+            <div class="home-socials">
+                <a href="https://www.instagram.com/paccy_ni5/" target="_blank" rel="noopener" class="social-link" id="heroInstagram" title="Instagram"><i class="bx bxl-instagram"></i></a>
+                <a href="https://www.facebook.com/ShadowSky03" target="_blank" rel="noopener" class="social-link" title="Facebook"><i class="bx bxl-facebook"></i></a>
+                <a href="https://x.com/Niyishobor2335" target="_blank" rel="noopener" class="social-link" title="Twitter / X"><i class="bx bxl-twitter"></i></a>
+                <a href="https://github.com/" target="_blank" rel="noopener" class="social-link" id="heroGithub" title="GitHub"><i class="bx bxl-github"></i></a>
+                <a href="https://linkedin.com/" target="_blank" rel="noopener" class="social-link" id="heroLinkedin" title="LinkedIn"><i class="bx bxl-linkedin"></i></a>
+            </div>
+        </div>
+        <div class="home-image">
+            <div class="profile-glow"></div>
+            <div class="profile-ring">
+                <div class="profile-img-wrap">
+                    <img src="enhanced_visibility_image.png" alt="Pacifique NIYISHOBORA"
+                         onerror="this.src='https://api.dicebear.com/7.x/initials/svg?seed=PN&backgroundColor=7c3aed&textColor=ffffff'">
+                </div>
+            </div>
+            <div class="float-badge badge-top"><i class="bx bx-code-alt"></i> Full Stack Dev</div>
+            <div class="float-badge badge-bottom"><i class="bx bx-map-pin"></i> <span id="badgeLocation">Kayonza, Gahini</span></div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ABOUT -->
+<section class="about" id="about">
+    <h2 class="section-title reveal">About <span>Me</span></h2>
+    <div class="about-grid">
+        <div class="about-image-wrap reveal">
+            <div class="about-circle">
+                <div class="about-circle-inner">
+                    <img src="enhanced_visibility_image.png" alt="Pacifique"
+                         onerror="this.src='https://api.dicebear.com/7.x/initials/svg?seed=PN&backgroundColor=7c3aed&textColor=ffffff'">
+                </div>
+            </div>
+            <div class="stats-pill pill-left"><span class="stat-num">10+</span><span class="stat-lbl">Projects</span></div>
+            <div class="stats-pill pill-right"><span class="stat-num">2+</span><span class="stat-lbl">Years Exp.</span></div>
+        </div>
+        <div class="about-text reveal">
+            <h2>About <span>Me</span></h2>
+            <h4 class="about-subtitle">// Full Stack Developer</h4>
+            <p id="aboutBio1">I am a skilled full stack developer — I build both the front-end and back-end of web applications, creating user-friendly interfaces and handling server, database, and logic behind the scenes.</p>
+            <p>Currently studying web development, driven by curiosity and a desire to grow. I enjoy solving real-world problems through code and continuously improving my craft with every project I build.</p>
+            <div class="about-info-grid">
+                <div class="info-card"><span class="info-label">Name</span><span class="info-value" id="infoName">Pacifique NIYISHOBORA</span></div>
+                <div class="info-card"><span class="info-label">Nickname</span><span class="info-value" id="infoNickname">Paccy</span></div>
+                <div class="info-card"><span class="info-label">Role</span><span class="info-value" id="infoRole">Full Stack Developer</span></div>
+                <div class="info-card"><span class="info-label">Status</span><span class="info-value status-open">🟢 Open to Work</span></div>
+                <div class="info-card"><span class="info-label">Instagram</span><span class="info-value">@paccy_ni5</span></div>
+                <div class="info-card"><span class="info-label">Twitter / X</span><span class="info-value">@Niyishobor2335</span></div>
+            </div>
+            <div class="about-btns">
+                <a href="#contact" class="btn btn-primary"><i class="bx bx-envelope"></i> Contact Me</a>
+                <a href="#" class="btn btn-outline" id="downloadCV"><i class="bx bx-download"></i> Download CV</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- SKILLS -->
+<section class="skills" id="skills">
+    <h2 class="section-title reveal">My <span>Skills</span></h2>
+    <div class="skills-grid">
+        <div class="skills-left reveal">
+            <h3>Technologies I Use</h3>
+            <p>I'm constantly growing my skill set and staying up-to-date with modern web technologies. Here are the tools and languages I use to build great products.</p>
+            <div class="tech-tags">
+                <span class="tech-tag">HTML5</span>
+                <span class="tech-tag">CSS3</span>
+                <span class="tech-tag">JavaScript</span>
+                <span class="tech-tag">React.js</span>
+                <span class="tech-tag">Node.js</span>
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">MySQL</span>
+                <span class="tech-tag">MongoDB</span>
+                <span class="tech-tag">Git &amp; GitHub</span>
+                <span class="tech-tag">Figma</span>
+                <span class="tech-tag">REST APIs</span>
+                <span class="tech-tag">Responsive Design</span>
+            </div>
+        </div>
+        <div class="skill-bars reveal" id="skillBars">
+            <div class="skill-item"><div class="skill-label"><span>HTML &amp; CSS</span><span class="skill-percent">90%</span></div><div class="bar-track"><div class="bar-fill" data-width="90"></div></div></div>
+            <div class="skill-item"><div class="skill-label"><span>JavaScript</span><span class="skill-percent">75%</span></div><div class="bar-track"><div class="bar-fill" data-width="75"></div></div></div>
+            <div class="skill-item"><div class="skill-label"><span>React.js</span><span class="skill-percent">65%</span></div><div class="bar-track"><div class="bar-fill" data-width="65"></div></div></div>
+            <div class="skill-item"><div class="skill-label"><span>Node.js / Backend</span><span class="skill-percent">60%</span></div><div class="bar-track"><div class="bar-fill" data-width="60"></div></div></div>
+            <div class="skill-item"><div class="skill-label"><span>Python</span><span class="skill-percent">55%</span></div><div class="bar-track"><div class="bar-fill" data-width="55"></div></div></div>
+            <div class="skill-item"><div class="skill-label"><span>Databases</span><span class="skill-percent">60%</span></div><div class="bar-track"><div class="bar-fill" data-width="60"></div></div></div>
+        </div>
+    </div>
+</section>
+
+
+<!-- PORTFOLIO -->
+<section class="portfolio" id="portfolio">
+    <h2 class="section-title reveal">My <span>Portfolio</span></h2>
+    <div class="portfolio-filter reveal">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="frontend">Frontend</button>
+        <button class="filter-btn" data-filter="fullstack">Full Stack</button>
+        <button class="filter-btn" data-filter="design">UI / UX</button>
+    </div>
+    <div class="portfolio-grid" id="portfolioGrid">
+        <div class="portfolio-card reveal" data-category="frontend">
+            <div class="card-visual"><i class="bx bx-store-alt"></i><div class="card-overlay"><a href="#" aria-label="Live demo"><i class="bx bx-link-external"></i></a><a href="#" aria-label="Source code"><i class="bx bxl-github"></i></a></div></div>
+            <div class="card-body"><h3>E-Commerce Landing Page</h3><p>A responsive online store front-end with product listings, cart UI, and smooth animations.</p><div class="card-tags"><span class="card-tag">HTML</span><span class="card-tag">CSS</span><span class="card-tag">JS</span></div></div>
+        </div>
+        <div class="portfolio-card reveal" data-category="fullstack">
+            <div class="card-visual"><i class="bx bx-task"></i><div class="card-overlay"><a href="#" aria-label="Live demo"><i class="bx bx-link-external"></i></a><a href="#" aria-label="Source code"><i class="bx bxl-github"></i></a></div></div>
+            <div class="card-body"><h3>Task Manager App</h3><p>A full-stack task management app with user auth, CRUD operations, and real-time updates.</p><div class="card-tags"><span class="card-tag">React</span><span class="card-tag">Node.js</span><span class="card-tag">MongoDB</span></div></div>
+        </div>
+        <div class="portfolio-card reveal" data-category="design">
+            <div class="card-visual"><i class="bx bx-palette"></i><div class="card-overlay"><a href="#" aria-label="Live demo"><i class="bx bx-link-external"></i></a><a href="#" aria-label="Source code"><i class="bx bxl-github"></i></a></div></div>
+            <div class="card-body"><h3>Portfolio UI Design</h3><p>A clean, modern UI/UX design concept for a creative agency with interactive prototypes.</p><div class="card-tags"><span class="card-tag">Figma</span><span class="card-tag">CSS</span><span class="card-tag">UI/UX</span></div></div>
+        </div>
+        <div class="portfolio-card reveal" data-category="fullstack">
+            <div class="card-visual"><i class="bx bx-chat"></i><div class="card-overlay"><a href="#" aria-label="Live demo"><i class="bx bx-link-external"></i></a><a href="#" aria-label="Source code"><i class="bx bxl-github"></i></a></div></div>
+            <div class="card-body"><h3>Real-Time Chat App</h3><p>A real-time messaging application built with WebSocket support for instant communication.</p><div class="card-tags"><span class="card-tag">Node.js</span><span class="card-tag">Socket.io</span><span class="card-tag">MySQL</span></div></div>
+        </div>
+        <div class="portfolio-card reveal" data-category="frontend">
+            <div class="card-visual"><i class="bx bx-cloud"></i><div class="card-overlay"><a href="#" aria-label="Live demo"><i class="bx bx-link-external"></i></a><a href="#" aria-label="Source code"><i class="bx bxl-github"></i></a></div></div>
+            <div class="card-body"><h3>Weather Dashboard</h3><p>A weather forecast app consuming a public API with dynamic data display and responsive layout.</p><div class="card-tags"><span class="card-tag">JavaScript</span><span class="card-tag">API</span><span class="card-tag">CSS</span></div></div>
+        </div>
+        <div class="portfolio-card reveal" data-category="design">
+            <div class="card-visual"><i class="bx bx-restaurant"></i><div class="card-overlay"><a href="#" aria-label="Live demo"><i class="bx bx-link-external"></i></a><a href="#" aria-label="Source code"><i class="bx bxl-github"></i></a></div></div>
+            <div class="card-body"><h3>Restaurant Website</h3><p>A beautiful responsive restaurant website with menu, gallery, and reservation form.</p><div class="card-tags"><span class="card-tag">HTML</span><span class="card-tag">CSS</span><span class="card-tag">JS</span></div></div>
+        </div>
+    </div>
+</section>
+
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+    <h2 class="section-title reveal">Contact <span>Me</span></h2>
+    <div class="contact-wrapper">
+
+        <div class="contact-info reveal">
+            <h3>Let's Work Together</h3>
+            <p>I'm always open to new opportunities, collaborations, and interesting projects. Feel free to reach out — I'll get back to you as soon as possible.</p>
+            <div class="contact-item">
+                <div class="contact-icon"><i class="bx bx-envelope"></i></div>
+                <div class="contact-detail"><span class="contact-label">Email</span><span class="contact-value" id="contactEmail">niyishoborapacifique@gmail.com</span></div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon"><i class="bx bx-phone"></i></div>
+                <div class="contact-detail"><span class="contact-label">Phone</span><span class="contact-value" id="contactPhone">+250 795 186 081</span></div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon"><i class="bx bx-map-pin"></i></div>
+                <div class="contact-detail"><span class="contact-label">Location</span><span class="contact-value" id="contactLocation">Kayonza, Gahini 🇷🇼</span></div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon"><i class="bx bx-time"></i></div>
+                <div class="contact-detail"><span class="contact-label">Response Time</span><span class="contact-value">Within 24 hours</span></div>
+            </div>
+            <div class="contact-socials">
+                <a href="https://www.instagram.com/paccy_ni5/" target="_blank" rel="noopener" title="Instagram"><i class="bx bxl-instagram"></i></a>
+                <a href="https://www.facebook.com/ShadowSky03" target="_blank" rel="noopener" title="Facebook"><i class="bx bxl-facebook"></i></a>
+                <a href="https://x.com/Niyishobor2335" target="_blank" rel="noopener" title="Twitter/X"><i class="bx bxl-twitter"></i></a>
+                <a href="https://github.com/" target="_blank" rel="noopener" title="GitHub"><i class="bx bxl-github"></i></a>
+                <a href="https://linkedin.com/" target="_blank" rel="noopener" title="LinkedIn"><i class="bx bxl-linkedin"></i></a>
+            </div>
+        </div>
+
+        <!-- CONTACT FORM — all fields stacked vertically -->
+        <form class="contact-form reveal" id="contactForm" novalidate>
+            <div class="form-header">
+                <h3>Send a Message</h3>
+                <p>Fill in the form below and I'll get back to you as soon as possible.</p>
+            </div>
+
+            <div class="form-field">
+                <label for="fname">Full Name <span class="required-star">*</span></label>
+                <div class="input-wrap">
+                    <i class="bx bx-user field-icon"></i>
+                    <input type="text" id="fname" name="from_name" placeholder="Your full name" required autocomplete="name">
+                </div>
+                <span class="field-error" id="nameError"></span>
+            </div>
+
+            <div class="form-field">
+                <label for="femail">Email Address <span class="required-star">*</span></label>
+                <div class="input-wrap">
+                    <i class="bx bx-envelope field-icon"></i>
+                    <input type="email" id="femail" name="from_email" placeholder="your@email.com" required autocomplete="email">
+                </div>
+                <span class="field-error" id="emailError"></span>
+            </div>
+
+            <div class="form-field">
+                <label for="fphone">Phone <span class="optional-tag">optional</span></label>
+                <div class="input-wrap">
+                    <i class="bx bx-phone field-icon"></i>
+                    <input type="tel" id="fphone" name="phone" placeholder="+250 000 000 000" autocomplete="tel">
+                </div>
+            </div>
+
+            <div class="form-field">
+                <label for="fsubject">Subject <span class="required-star">*</span></label>
+                <div class="input-wrap">
+                    <i class="bx bx-edit field-icon"></i>
+                    <input type="text" id="fsubject" name="subject" placeholder="What is this about?" required>
+                </div>
+                <span class="field-error" id="subjectError"></span>
+            </div>
+
+            <div class="form-field">
+                <label for="fservice">Service Needed <span class="optional-tag">optional</span></label>
+                <div class="input-wrap select-wrap">
+                    <i class="bx bx-wrench field-icon"></i>
+                    <select id="fservice" name="service">
+                        <option value="" disabled selected>Select a service...</option>
+                        <option value="Web Design">Web Design</option>
+                        <option value="Full Stack Development">Full Stack Development</option>
+                        <option value="Frontend Development">Frontend Development</option>
+                        <option value="Backend Development">Backend Development</option>
+                        <option value="UI/UX Design">UI/UX Design</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-field">
+                <label for="fmessage">Message <span class="required-star">*</span></label>
+                <div class="input-wrap textarea-wrap">
+                    <i class="bx bx-message-detail field-icon"></i>
+                    <textarea id="fmessage" name="message" placeholder="Tell me about your project or idea..." required></textarea>
+                </div>
+                <span class="field-error" id="messageError"></span>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">
+                <span class="btn-text"><i class="bx bx-send"></i> Send Message</span>
+                <span class="btn-loading" hidden><span class="spinner"></span> Sending...</span>
+            </button>
+
+            <div class="form-status" id="formStatus" role="alert"></div>
+        </form>
+
+    </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="footer-logo">Paci<span>.</span></div>
+    <p class="footer-copy">© 2025 Pacifique NIYISHOBORA. All Rights Reserved.</p>
+    <nav class="footer-links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#contact">Contact</a>
+    </nav>
+</footer>
+
+<a href="#home" class="back-top" id="backTop" aria-label="Back to top"><i class="bx bx-chevron-up"></i></a>
+
+<script src="main.js"></script>
+</body>
+</html>
